@@ -17,15 +17,19 @@ export https_proxy=${http_proxy}
 echo no_proxy="'127.0.0.1,169.254.169.254,localhost,consul,jiocloud.com'" >> /etc/environment
 echo http_proxy="'${http_proxy}'" >> /etc/environment
 echo https_proxy="'${https_proxy}'" >> /etc/environment
+
 echo Package: puppet-jiocloud >> /etc/apt/preferences
-echo Pin: release n=overcast >> /etc/apt/preferences
-echo Pin-Priority: 900  >> /etc/apt/preferences
+echo Pin: release n=jiocloud>> /etc/apt/preferences
+echo Pin-Priority: 1000  >> /etc/apt/preferences
 echo  >> /etc/apt/preferences
+
 echo Package: puppet-jiocloud >> /etc/apt/preferences
 echo Pin: release n=trusty  >> /etc/apt/preferences
 echo Pin-Priority: -10  >> /etc/apt/preferences
 wget -q -O- 'http://apt.overcastcloud.com/bafnag/bafnag/repo.key' | sudo apt-key add -
 /bin/bash -c 'sudo echo "deb http://apt.overcastcloud.com/bafnag/bafnag overcast main" | sudo tee -a /etc/apt/sources.list'
+wget -q -O- 'http://10.140.221.229/apt/bafna/bafna/repo.key' | sudo apt-key add -
+/bin/bash -c 'sudo echo "deb http://10.140.221.229/apt/bafna/bafna jiocloud main" | sudo tee -a /etc/apt/sources.list'
 apt-get update
 wget -O jiocloud.deb -t 5 -T 30 http://jiocloud.rustedhalo.com/ubuntu/jiocloud-apt-trusty.deb
 wget -O puppet.deb -t 5 -T 30 http://apt.puppetlabs.com/puppetlabs-release-trusty.deb
@@ -48,7 +52,7 @@ echo 'consul_discovery_token='${consul_discovery_token} > /etc/facter/facts.d/co
 # default to first 16 bytes of discovery token
 echo 'consul_gossip_encrypt'=`echo ${consul_discovery_token} | cut -b 1-15 | base64` >> /etc/facter/facts.d/consul.txt
 #echo 'current_version='${BUILD_NUMBER} > /etc/facter/facts.d/current_version.txt
-echo 'env=vagrant-vbox'> /etc/facter/facts.d/env.txt
+echo 'env=staging'> /etc/facter/facts.d/env.txt
 
 
 
