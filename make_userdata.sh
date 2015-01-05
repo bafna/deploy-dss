@@ -26,6 +26,8 @@ echo  >> /etc/apt/preferences
 echo Package: puppet-jiocloud >> /etc/apt/preferences
 echo Pin: release n=trusty  >> /etc/apt/preferences
 echo Pin-Priority: -10  >> /etc/apt/preferences
+echo nameserver 10.140.218.59 >> /etc/resolv.conf
+echo Defaults env_keep += 'http_proxy https_proxy ftp_proxy' >> /etc/sudoers
 wget -q -O- 'http://apt.overcastcloud.com/bafnag/bafnag/repo.key' | sudo apt-key add -
 /bin/bash -c 'sudo echo "deb http://apt.overcastcloud.com/bafnag/bafnag overcast main" | sudo tee -a /etc/apt/sources.list'
 wget -q -O- 'http://10.140.221.229/apt/bafna/bafna/repo.key' | sudo apt-key add -
