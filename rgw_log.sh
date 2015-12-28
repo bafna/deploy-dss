@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-consul members status | grep server | awk  '{print $2}'  | awk -F':' '{print $1}' | tee rgw
+consul members status | grep -e 'alive.*server' | awk  '{print $2}'  | awk -F':' '{print $1}' | tee rgw
 
 filename=rgw
 count=0
