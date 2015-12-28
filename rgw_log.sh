@@ -10,4 +10,4 @@ while read -r p; do
  ((count+=1)) 
  echo "done"
 done < $filename
-cat radosgw*.log > rgw.log 
+cat radosgw*.log | grep -v "s3:GET /:" > rgw.log
